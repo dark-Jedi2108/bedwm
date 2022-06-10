@@ -1,6 +1,5 @@
 #!/bin/bash
 PROMPT=$1
-# TODO -> eww keybinds , post install setup
 checkdir() {
   if [ -d $1 ]; then
 	  echo "$1 exists"
@@ -41,6 +40,7 @@ riceone() {
   
   # neovim
   cp ~/.config/nvim/$1.vim ~/.config/nvim/init.vim
+  
 
 
   feh --bg-scale ~/bedwm/$1.png
@@ -50,14 +50,14 @@ riceone() {
 }
 
 setup() {
-  #sudo pacman -S rofi neovim dunst thunar picom lxappearance firefox discord
-  #yay -S eww betterlockscreen visual-studio-code-bin spotify 
-  #yay -S nerd-fonts-jetbrains-mono nerd-fonts-fira-code ttf-comic-mono-git #fonts
-  #curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim #vim
+  sudo pacman -S rofi neovim dunst thunar picom lxappearance firefox discord
+  yay -S eww betterlockscreen visual-studio-code-bin spotify 
+  yay -S nerd-fonts-jetbrains-mono nerd-fonts-fira-code ttf-comic-mono-git #fonts
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim #vim
   checkdir ~/.config/rofi
   cp -r ~/bedwm/rofi ~/.config
-  cp -r ~/bedwm/rofi-themes ~/.local/share/rofi/
-  mv ~/.local/share/rofi/rofi-themes ~/.local/share/rofi/themes
+  checkdir ~/.local/share/rofi/themes
+  cp -r ~/bedwm/rofi-themes/* ~/.local/share/rofi/themes
   checkdir ~/.config/picom
   cp -r ~/bedwm/picom ~/.config/
   checkdir ~/.config/nvim
@@ -71,7 +71,14 @@ setup() {
   checkdir ~/.config/gtk-3.0
   cp -r ~/bedwm/gtk-3/* ~/.config/gtk-3.0
   touch ~/.xinitrc
-  cp ~/bedwm/xinitrc ~/.xinitrc  
+  cp ~/bedwm/xinitrc ~/.xinitrc
+  checkdir ~/.local/bin
+  cp ~/bedwm/bin/* ~/.local/bin
+
+  cd ~/.local/bin
+  sudo chmod +x ./
+
+  cd ~/bedwm
 }
 
 post() {
