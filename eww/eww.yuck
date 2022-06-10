@@ -1,0 +1,235 @@
+(defpoll hour 	:interval "1s" `date +%H`)
+(defpoll minute :interval "1s" `date +%M`)
+(defpoll day 	:interval "1s" `date "+%A"`)
+(defpoll date 	:interval "1s" `date "+%D"`)
+(defpoll NAME  :interval "5m"  "hostname")
+(defpoll UNAME :interval "5m"  "whoami")
+(defpoll ram-usage 			:interval "1s"  "~/.config/eww/scripts/sys_info --mem")
+(defpoll battery-capacity 	:interval "1s"  "~/.config/eww/scripts/sys_info --bat")
+(defpoll current-brightness :interval "1s"  "~/.config/eww/scripts/sys_info --bri")
+(defpoll current-volume 	:interval "1s"  "~/.config/eww/scripts/sys_info --vol")
+(defpoll quote_text     :interval "10m" "~/.config/eww/scripts/quotes quote")
+(defpoll quote_author   :interval "10m" "~/.config/eww/scripts/quotes author")
+
+(defwidget clock [] 
+	(box	:class "time"
+			:orientation "v"
+			:space-evenly "false"
+			:valign "center"
+			:halign "center"
+	(box 	:orientation "h"
+			:class "date"
+			:space-evenly "false"
+	(label	:class "hour"
+			:text "${hour}")
+	(label	:class "separator-clock"
+			:text ":")		
+	(label	:class "min"
+			:text "${minute}"))
+	(box	:orientation "h"
+			:space-evenly "false"
+			:halign "center"
+	(label	:class "day"
+			:text "${date}"))
+	)	
+)
+
+
+
+(defwidget profile [] 
+    (box :orientation "v" 
+		 :space-evenly "false" 
+		 :class "profile" 
+    (box :orientation "h" 
+		 :space-evenly "false" 
+    (box :class "pfp"))
+    (box :orientation "v" :space-evenly "false"  
+    (box :class "pfptxt" :valign "center" {"arch"})
+    (box :class "subpfptxt" :halign "center" {UNAME})
+		)
+	)
+)
+
+;; SyS Widgets
+(defwidget radialmeter [value text ?class ?labelclass]
+    (circular-progress :value value
+        :class "radial ${class}"
+        :start-angle 0
+        :thickness 12
+        (label :text text
+            :class "radial-label ${labelclass}"
+            :limit-width 2
+            :show_truncated false
+            :wrap false
+            :angle 0.0)))            
+(defwidget circular-brightness[]
+        (box	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+				:halign "center"
+        (box 	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+            	:class "radial-brightness-box"
+				:tooltip "Current Brightness: ${current-brightness}%"
+(radialmeter 	:value current-brightness
+            	:text " "
+            	:labelclass "brightness-radial-label"
+            	:class "brightness-radial")
+		)
+	)
+)
+(defwidget circular-volume[]
+        (box	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+				:halign "center"
+        (box 	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+            	:class "radial-volume-box"
+				:tooltip "Current Volume: ${current-volume}%"
+(radialmeter 	:value current-volume
+            	:text " "
+            	:labelclass "volume-radial-label"
+            	:class "volume-radial")
+		)
+	)
+)
+(defwidget circular-bat[]
+        (box	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+				:halign "center"
+        (box 	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+            	:class "radial-bat-box"
+				:tooltip "Battery Capacity: ${battery-capacity}%"
+(radialmeter 	:value battery-capacity
+            	:text " " 
+            	:labelclass "bat-radial-label"
+            	:class "bat-radial")
+		)
+	)
+)
+(defwidget circular-ram[]
+        (box	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+				:halign "center"
+        (box 	:spacing 0
+            	:orientation "h"
+            	:space-evenly false
+            	:class "radial-ram-box"
+				:tooltip "Ram Usage: ${ram-usage}%"
+(radialmeter 	:value ram-usage
+            	:text " "
+            	:labelclass "ram-radial-label"
+            	:class "ram-radial")
+		)
+	)
+)
+(defwidget systray[]
+	(box :orientation 'v' 
+		 :class "systray-circular"
+	(box :orientation 'h' :space-evenly "false"
+	  (circular-ram)(circular-volume))
+	(box :orientation 'h' :space-evenly "false"
+	  (circular-bat)(circular-brightness))
+	)
+)
+
+;; Quote
+(defwidget quotes [] 
+	(box 	:class "quote" 
+		 	:orientation "h" 
+			:halign "center"
+		 	:spacing 0 
+		 	:space-evenly "false"
+			:height 253
+	(box 	:orientation "v" 
+		 	:spacing 0 
+		 	:space-evenly "false" 
+	(label 	:class "quote-text" 
+			:halign "center" 
+			:wrap "true"
+			:text "\"${quote_text}\"")
+	(label 	:class "quote-author" 
+			:halign "center" 
+			:wrap "true"
+			:text quote_author)
+		)
+	)
+)
+
+(defwidget app[]
+	(box	:orientation "h"
+			:class "applications"
+			:space-evenly "true"
+			:spacing 8
+	(button :class "app-firefox" 
+			:onclick "firefox && ~/eww/target/release/eww open --toggle dashboard " " ")
+	(button :class "app-code" 
+			:onclick "code && ~/eww/target/release/eww open --toggle dashboard" " ")
+	(button :class "app-discord" 
+			:onclick "discord && ~/eww/target/release/eww open --toggle dashboard" " ﭮ")
+	(button :class "app-spotify" 
+			:onclick "spotify && ~/eww/target/release/eww open --toggle dashboard" " 阮")
+	)
+)
+
+(defwidget powermenu[]
+  (box :orientation "v"
+      :class "powermenu"
+      :space-evenly "true"
+      :spacing 10
+  (button :class "p-btn"
+      :onclick "poweroff" "")
+  (button :class "p-btn"
+      :onclick "systemctl suspend" "鈴")
+  (button :class "p-btn"
+      :onclick "betterlockscreen -l" "")
+  (button :class "p-btn"
+      :onclick "reboot" "ﰇ")
+  )
+)
+
+;; Main WIdgets
+(defwidget dashboard[]
+	(box :orientation "h"	 
+		 :class "dashboard"
+		 :space-evenly "false"
+	(box :orientation "v"
+		 :space-evenly "false"
+			(profile)
+			(clock)
+      (app))
+  
+  (box :orientation "v"
+	     :space-evenly "false"
+			(systray)
+      (quotes))
+  )
+)
+
+(defwindow dashboard
+    :monitor 0
+    :geometry (geometry :x "0"
+                        :y "0"
+                        :anchor "center")
+    :windowtype "dock"
+    :wm-ignore true
+(dashboard))
+
+(defwindow pmenu
+    :monitor 0
+    :geometry (geometry :x "1790"
+                        :y "300"
+    :windowtype "dock"
+                        )
+    :windowtype "dock"
+    :reserve (struts :distance "35px" 
+					 :side "left")
+    :wm-ignore true
+(powermenu))

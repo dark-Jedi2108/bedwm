@@ -1,0 +1,9 @@
+case "$(echo -e "Shutdown\nRestart\nLogout\nSuspend\nLock" | dmenu \
+    -b -i -p \
+    "" -l 5)" in
+        Shutdown) poweroff;;
+        Restart) reboot;;
+        Logout) kill -HUP $XDG_SESSION_PID;;
+        Suspend) exec systemctl suspend;;
+        Lock) slock;;
+esac

@@ -1,0 +1,10 @@
+--- st.c
++++ st.c
+@@ -237,7 +237,6 @@ static Rune utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
+ /* config.h array lengths */
+ size_t colornamelen = LEN(colorname);
+ size_t mshortcutslen = LEN(mshortcuts);
+-size_t mkeyslen = LEN(mkeys);
+ size_t shortcutslen = LEN(shortcuts);
+ size_t selmaskslen = LEN(selmasks);
+ 
