@@ -1,18 +1,18 @@
-static const char col_gray1[]       = "#282a36";
-static const char col_gray2[]       = "#644475";
-static const char col_gray3[]       = "#f8f8f2";
-static const char col_gray4[]       = "#282a36";
-static const char col_gray5[]       = "#a272a4";
-static const char col_cyan[]        = "#f8f8f2";
 
-
+static const char col_gray1[]       = "#2e3440";
+static const char col_gray2[]       = "#444444";
+static const char col_gray3[]       = "#bbbbbb";
+static const char col_gray4[]       = "#e5e9f0";
+static const char col_cyan[]        = "#eceff4";
+/* tagging */
 static const char *tagsel[][2] = {
-       { "#ff5555", "#44475a" },
-       { "#ff79c6", "#44475a" },
-       { "#8be9fd", "#44475a" },
-       { "#ffb86c", "#44475a" },
-       { "#bd93f9", "#44475a" },
-       { "#50fa7b", "#44475a" },
-       { "#6272a4", "#44475a" },
+       { "#bf616a", "#434c5e" },
+       { "#d08770", "#434c5e" },
+       { "#ebcb8b", "#434c5e" },
+       { "#a3be8c", "#434c5e" },
+       { "#b48ead", "#434c5e" },
+       { "#8fbcbb", "#434c5e" },
+       { "#a3be8c", "#434c5e" },
 
 };
+

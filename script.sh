@@ -1,5 +1,6 @@
 #!/bin/bash
 PROMPT=$1
+BGTHEME=$2
 checkdir() {
   if [ -d $1 ]; then
 	  echo "$1 exists"
@@ -83,7 +84,7 @@ setup() {
 
 post() {
   betterlockscreen -u ~/bedwm/lock.png
-  feh --bg-scale ~/bedwm/$CURRENT_THEME.png
+  feh --bg-scale ~/bedwm/$2.png
 }
 
 if [ $PROMPT == "gruv" ]; then
@@ -94,8 +95,8 @@ elif [ $PROMPT == 'dracula' ]; then
   riceone dracula
 elif [ $PROMPT == 'setup' ]; then
   setup
-elif [ $PROMPT == 'postinst' ]; then
-  post
+elif [ $PROMPT == 'bg' ]; then
+  post $PROMPT
 else
   echo "Invalid Theme"
 fi

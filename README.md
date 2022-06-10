@@ -1,4 +1,3 @@
-
 # Bedwm
 
 Dwm for people who are too lazy to rice it
@@ -36,6 +35,9 @@ Rice it!
 ```base
   ./script.sh <themename>  # available options - dracula nord gruvbox
 ```
+
+## Important
+Pls change your usernmae in config files (dwm, st , slstatus)
 
 ## Contributing
 
